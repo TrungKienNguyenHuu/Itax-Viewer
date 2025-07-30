@@ -10,8 +10,7 @@ import ihtkk.tool.taxdoc.HSoThue;
 
 public class GNTNSNN extends HSoThue
 {
-  public GNTNSNN(Document ctuDoc, String ctuFileName, ConfigInfo config) throws java.io.IOException, javax.xml.parsers.ParserConfigurationException, ITaxViewerException
-  {
+  public GNTNSNN(Document ctuDoc, String ctuFileName, ConfigInfo config) throws Exception {
     super(ctuDoc, ctuFileName, config);
     DMucCTu dmCTu = config.getDmCTu();
     String nodeName = null;

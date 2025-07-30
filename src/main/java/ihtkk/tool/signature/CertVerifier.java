@@ -33,22 +33,24 @@ import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.DERObjectIdentifier;
 import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.DERTaggedObject;
 import org.bouncycastle.asn1.ocsp.OCSPObjectIdentifiers;
+import org.bouncycastle.asn1.x509.Extensions;
 import org.bouncycastle.asn1.x509.X509Extension;
 import org.bouncycastle.asn1.x509.X509Extensions;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.ocsp.BasicOCSPResp;
-import org.bouncycastle.ocsp.CertificateID;
-import org.bouncycastle.ocsp.OCSPException;
-import org.bouncycastle.ocsp.OCSPReq;
-import org.bouncycastle.ocsp.OCSPReqGenerator;
-import org.bouncycastle.ocsp.OCSPResp;
-import org.bouncycastle.ocsp.RevokedStatus;
-import org.bouncycastle.ocsp.SingleResp;
-import org.bouncycastle.ocsp.UnknownStatus;
+import org.bouncycastle.cert.ocsp.BasicOCSPResp;
+import org.bouncycastle.cert.ocsp.CertificateID;
+import org.bouncycastle.cert.ocsp.OCSPException;
+import org.bouncycastle.cert.ocsp.OCSPReq;
+import org.bouncycastle.cert.ocsp.OCSPReqBuilder;
+import org.bouncycastle.cert.ocsp.OCSPResp;
+import org.bouncycastle.cert.ocsp.RevokedStatus;
+import org.bouncycastle.cert.ocsp.SingleResp;
+import org.bouncycastle.cert.ocsp.UnknownStatus;
+import org.bouncycastle.operator.OperatorCreationException;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateHolder;
 
 public class CertVerifier
 {
@@ -148,16 +150,21 @@ public class CertVerifier
   }
   
   private OCSPReq generateOCSPRequest(X509Certificate issuerCert, BigInteger serialNumber)
-    throws OCSPException
-  {
+          throws OCSPException, OperatorCreationException, CertificateException {
     Security.addProvider(new BouncyCastleProvider());
-    
 
-    CertificateID id = new CertificateID("1.3.14.3.2.26", 
-      issuerCert, serialNumber);
-    
+    org.bouncycastle.operator.DigestCalculatorProvider digCalcProv = 
+        new org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder()
+            .setProvider("BC")
+            .build();
+            
+    CertificateID id = new CertificateID(
+        digCalcProv.get(CertificateID.HASH_SHA1), 
+        new JcaX509CertificateHolder(issuerCert), 
+        serialNumber
+    );
 
-    OCSPReqGenerator gen = new OCSPReqGenerator();
+    OCSPReqBuilder gen = new OCSPReqBuilder();
     
     gen.addRequest(id);
     
@@ -169,9 +176,9 @@ public class CertVerifier
     oids.add(OCSPObjectIdentifiers.id_pkix_ocsp_nonce);
     values.add(new X509Extension(false, new DEROctetString(nonce.toByteArray())));
     
-    gen.setRequestExtensions(new X509Extensions(oids, values));
+    gen.setRequestExtensions(Extensions.getInstance(new X509Extensions(oids, values)));
     
-    return gen.generate();
+    return gen.build();
   }
   
   public void checkRevocationStatus(X509Certificate cert, X509Certificate[] issuerCerts) throws Exception {
@@ -247,7 +254,7 @@ public class CertVerifier
     }
     return ocspUrlList;
   }
-  
+
   private List<String> getX509Extensions(X509Certificate cert, String OID) throws Exception {
     List<String> extValues = new ArrayList();
     try {
@@ -261,7 +268,7 @@ public class CertVerifier
       ASN1Sequence accessDescriptions = (ASN1Sequence)ais.readObject();
       for (int i = 0; i < accessDescriptions.size(); i++) {
         ASN1Sequence accessDescription = (ASN1Sequence)accessDescriptions.getObjectAt(i);
-        if (((DERObjectIdentifier)accessDescription.getObjectAt(0)).getId().equals(OID)) {
+        if (((ASN1ObjectIdentifier)accessDescription.getObjectAt(0)).getId().equals(OID)) {
           DERTaggedObject taggedObject = (DERTaggedObject)accessDescription.getObjectAt(1);
           extValues.add(new String(ASN1OctetString.getInstance(taggedObject, false).getOctets(), "ISO-8859-1"));
         }

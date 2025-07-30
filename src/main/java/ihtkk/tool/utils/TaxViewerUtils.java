@@ -5,11 +5,6 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import ihtkk.tool.ITaxViewerException;
 
-
-
-
-
-
 public class TaxViewerUtils
 {
   public TaxViewerUtils() {}

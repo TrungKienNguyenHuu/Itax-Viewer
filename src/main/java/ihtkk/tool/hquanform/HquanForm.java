@@ -23,8 +23,7 @@ public class HquanForm
   extends HSoThue
 {
   public HquanForm(Document tkhaiDoc, String tkhaiFileName, ConfigInfo config)
-    throws IOException, ParserConfigurationException, ITaxViewerException
-  {
+          throws Exception {
     super(tkhaiDoc, tkhaiFileName, config);
     DMucHquan dmucHquan = config.getDmHquan();
     String nodeName = null;
@@ -120,7 +119,6 @@ public class HquanForm
       if (plucList.item(i).getNodeType() == 1) {
         PLuc pluc = new PLuc();
         String[] plucIDWithPrefix = plucList.item(i).getNodeName().split(":");
-        String plucID;
         String plucID; if (plucIDWithPrefix.length == 1) {
           plucID = plucIDWithPrefix[0];
         } else {

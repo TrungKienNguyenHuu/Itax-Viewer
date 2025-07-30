@@ -22,8 +22,7 @@ public class DKyThue
   extends HSoThue
 {
   public DKyThue(Document tkhaiDoc, String tkhaiFileName, ConfigInfo config)
-    throws IOException, ParserConfigurationException, ITaxViewerException
-  {
+          throws Exception {
     super(tkhaiDoc, tkhaiFileName, config);
     DMucDKy dmDKy = config.getDmDKy();
     String nodeName = null;

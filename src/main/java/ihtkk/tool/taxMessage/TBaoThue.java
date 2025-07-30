@@ -21,8 +21,7 @@ public class TBaoThue
   extends HSoThue
 {
   public TBaoThue(Document tkhaiDoc, String tkhaiFileName, ConfigInfo config)
-    throws IOException, ParserConfigurationException, ITaxViewerException
-  {
+          throws Exception {
     super(tkhaiDoc, tkhaiFileName, config);
     DMucTBao dmTBao = config.getDmTBao();
     String nodeName = null;

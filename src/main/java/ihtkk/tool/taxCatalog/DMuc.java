@@ -22,8 +22,7 @@ public class DMuc
   extends HSoThue
 {
   public DMuc(Document tkhaiDoc, String tkhaiFileName, ConfigInfo config)
-    throws IOException, ParserConfigurationException, ITaxViewerException
-  {
+          throws Exception {
     super(tkhaiDoc, tkhaiFileName, config);
     DMucDMuc dmDMuc = config.getDmDMuc();
     String nodeName = null;

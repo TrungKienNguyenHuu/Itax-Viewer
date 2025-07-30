@@ -41,8 +41,7 @@ public abstract class HSoThueFactory
   
   public HSoThueFactory() {}
   
-  public static HSoThue createHSoThue(String tkhaiFileName, ConfigInfo config) throws IOException, ParserConfigurationException, ITaxInvalidDocException, ITaxViewerException
-  {
+  public static HSoThue createHSoThue(String tkhaiFileName, ConfigInfo config) throws Exception {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
     DocumentBuilder db = dbf.newDocumentBuilder();
@@ -92,7 +91,7 @@ public abstract class HSoThueFactory
     throw new ITaxInvalidDocException("Tệp hồ sơ không đúng định dạng.");
   }
   
-  public static HSoThue createHSoThueByText(String contentData, ConfigInfo config) throws IOException, ParserConfigurationException, ITaxInvalidDocException, ITaxViewerException { DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+  public static HSoThue createHSoThueByText(String contentData, ConfigInfo config) throws Exception { DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
     DocumentBuilder db = dbf.newDocumentBuilder();
     Document hsoDoc;

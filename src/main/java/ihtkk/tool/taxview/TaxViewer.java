@@ -57,7 +57,6 @@ public class TaxViewer
       try
       {
         dataContentXML = TaxViewerUtils.getDataContectXMLFromBase64(dataContentXML);
-        
         hsoFileName = TaxViewerUtils.createTemFileFromTextData(dataContentXML);
       } catch (ITaxViewerException e) {
         e.printStackTrace();
@@ -98,29 +97,10 @@ public class TaxViewer
     }
   }
   
-  private static void init() throws Exception { config = new ConfigInfo();
+  private static void init() throws Exception { 
+    config = new ConfigInfo();
     System.setProperty("java.net.useSystemProxies", "true");
   }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   public void start(String hsoFileName)
     throws IOException, SAXException, ParserConfigurationException
@@ -165,12 +145,6 @@ public class TaxViewer
     
     MenuItem openMenuItem = new MenuItem(fileSubMenu, 0);
     openMenuItem.setText("&Mở tệp hồ sơ");
-    
-
-
-
-
-
 
     openMenuItem.addSelectionListener(new SelectionListener()
     {
@@ -178,9 +152,6 @@ public class TaxViewer
       {
         TaxViewer.this.openFile();
       }
-      
-
-
       public void widgetDefaultSelected(SelectionEvent event) {}
     });
     new MenuItem(fileSubMenu, 2);
@@ -188,17 +159,6 @@ public class TaxViewer
     MenuItem printMenuItem = new MenuItem(fileSubMenu, 0);
     printMenuItem.setEnabled(false);
     printMenuItem.setText("&In hồ sơ");
-    
-
-
-
-
-
-
-
-
-
-
 
     printMenuItem.addSelectionListener(new SelectionListener()
     {
@@ -211,9 +171,6 @@ public class TaxViewer
           TaxViewExceptionHandler.handleError(TaxViewer.shell.getShell(), ex);
         }
       }
-      
-
-
 
       public void widgetDefaultSelected(SelectionEvent event) {}
     });
@@ -221,24 +178,12 @@ public class TaxViewer
     
     MenuItem exitMenuItem = new MenuItem(fileSubMenu, 0);
     exitMenuItem.setText("&Thoát khỏi ứng dụng");
-    
-
-
-
-
-
-
-
     exitMenuItem.addSelectionListener(new SelectionListener()
     {
       public void widgetSelected(SelectionEvent event)
       {
         TaxViewer.this.exit();
       }
-      
-
-
-
       public void widgetDefaultSelected(SelectionEvent event) {}
     });
     MenuItem signatureMenu = new MenuItem(appMenu, 64);
@@ -250,18 +195,6 @@ public class TaxViewer
     
     MenuItem verifyMenuItem = new MenuItem(signatureSubMenu, 0);
     verifyMenuItem.setText("&Xác minh chữ ký điện tử");
-    
-
-
-
-
-
-
-
-
-
-
-
     verifyMenuItem.addSelectionListener(new SelectionListener()
     {
       public void widgetSelected(SelectionEvent event)
@@ -273,9 +206,6 @@ public class TaxViewer
           TaxViewExceptionHandler.handleError(TaxViewer.shell.getShell(), ex);
         }
       }
-      
-
-
 
       public void widgetDefaultSelected(SelectionEvent event) {}
     });
@@ -292,73 +222,6 @@ public class TaxViewer
       {
         TaxViewer.this.openFile();
       }
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       public void widgetDefaultSelected(SelectionEvent event) {}
     });
@@ -379,63 +242,6 @@ public class TaxViewer
           TaxViewExceptionHandler.handleError(TaxViewer.shell.getShell(), ex);
         }
       }
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       public void widgetDefaultSelected(SelectionEvent event) {}
     });
@@ -456,35 +262,6 @@ public class TaxViewer
           TaxViewExceptionHandler.handleError(TaxViewer.shell.getShell(), ex);
         }
       }
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       public void widgetDefaultSelected(SelectionEvent event) {}
     });
     appToolBar.pack();

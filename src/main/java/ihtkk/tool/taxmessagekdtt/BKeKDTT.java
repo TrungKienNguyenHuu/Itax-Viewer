@@ -23,8 +23,7 @@ public class BKeKDTT
   extends HSoThue
 {
   public BKeKDTT(Document tkhaiDoc, String tkhaiFileName, ConfigInfo config)
-    throws IOException, ParserConfigurationException, ITaxViewerException
-  {
+          throws Exception {
     super(tkhaiDoc, tkhaiFileName, config);
     DMucBKeKDTT dmBKeKDTT = config.getDmBKeKDTT();
     String nodeName = null;

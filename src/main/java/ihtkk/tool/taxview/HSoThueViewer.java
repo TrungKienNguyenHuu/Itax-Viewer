@@ -63,7 +63,7 @@ public class HSoThueViewer
   private static Composite actionArea;
   private Control selectedControl;
   
-  public HSoThueViewer(ConfigInfo config, Composite viewArea, Composite actionArea, String tkhaiFileName) throws IOException, ParserConfigurationException, ITaxInvalidDocException, ITaxViewerException { viewArea = viewArea;
+  public HSoThueViewer(ConfigInfo config, Composite viewArea, Composite actionArea, String tkhaiFileName) throws Exception { viewArea = viewArea;
     actionArea = actionArea;
     hso = HSoThueFactory.createHSoThue(tkhaiFileName, config);
   }

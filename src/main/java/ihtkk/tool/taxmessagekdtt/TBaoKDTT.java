@@ -23,8 +23,7 @@ public class TBaoKDTT
   extends HSoThue
 {
   public TBaoKDTT(Document tkhaiDoc, String tkhaiFileName, ConfigInfo config)
-    throws IOException, ParserConfigurationException, ITaxViewerException
-  {
+          throws Exception {
     super(tkhaiDoc, tkhaiFileName, config);
     DMucTBaoKDTT dmTBaoNtdt = config.getDmTBaoKDTT();
     String nodeName = null;

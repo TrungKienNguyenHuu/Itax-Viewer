@@ -21,8 +21,7 @@ public class TKhaiThue
   extends HSoThue
 {
   public TKhaiThue(Document tkhaiDoc, String tkhaiFileName, ConfigInfo config)
-    throws IOException, ParserConfigurationException, ITaxViewerException
-  {
+          throws Exception {
     super(tkhaiDoc, tkhaiFileName, config);
     DMucTKhai dmTKhai = config.getDmTKhai();
     String nodeName = null;
