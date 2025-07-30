@@ -109,7 +109,7 @@ public class IHTKKXMLSignature
     verifyXMLSignature(doc);
   }
   
-  public Collection verifyXMLSignature(Document doc) { CertVerifier certVerifier = new CertVerifier(rootCerts, trustedCerts);
+  public Collection verifyXMLSignature(Document doc) throws Exception { CertVerifier certVerifier = new CertVerifier(rootCerts, trustedCerts);
     
     ArrayList resultArr = new ArrayList();
     X509Certificate[] certChain = null;
@@ -170,8 +170,6 @@ public class IHTKKXMLSignature
 
       for (int i = 0; i < signl.getLength(); i++) {
         XMLSignatureValidationResult result = new XMLSignatureValidationResult();
-        try
-        {
           try {
             Element tempNode = (Element)signl.item(i);
             Element timeStamp = (Element)tempNode.getElementsByTagName("DateTimeStamp").item(0);
@@ -185,37 +183,25 @@ public class IHTKKXMLSignature
           if (!checkSignXpath) {
             valContext.setIdAttributeNS((Element)nodeToSign, null, "id");
           }
-          
+
           XMLSignature signature = fac.unmarshalXMLSignature(valContext);
           certChain = getCertificateChain(signature.getKeyInfo());
           result.setCertChain(certChain);
-          
+
 
           verifyXMLSignature(signature, valContext);
-          
 
 
           certVerifier.verifyCertificationChain(null, certChain[0], certChain);
-          
+
 
           certVerifier.checkRevocationStatus(certChain[0], trustedCerts);
-        }
-        catch (Exception ex) {
-          if ((ex instanceof ITaxSigValidException)) {
-            result.setValidStatus(XMLSignatureValidationResult.SIG_STATUS_ERROR);
-          } else if ((ex instanceof ITaxCertValidException)) {
-            result.setValidStatus(XMLSignatureValidationResult.SIG_STATUS_ERROR);
-          } else if ((ex instanceof ITaxStatusValidException)) {
-            result.setValidStatus(XMLSignatureValidationResult.SIG_STATUS_WARNING);
-          }
-          result.setValidMessage(ex.getMessage());
-        }
-        resultArr.add(result);
+          resultArr.add(result);
       } }
     return resultArr;
   }
   
-  public Collection verifyXMLSignature(Document doc, String xPath_data) { CertVerifier certVerifier = new CertVerifier(rootCerts, trustedCerts);
+  public Collection verifyXMLSignature(Document doc, String xPath_data) throws Exception { CertVerifier certVerifier = new CertVerifier(rootCerts, trustedCerts);
     
     ArrayList resultArr = new ArrayList();
     X509Certificate[] certChain = null;
@@ -275,8 +261,6 @@ public class IHTKKXMLSignature
 
       for (int i = 0; i < signl.getLength(); i++) {
         XMLSignatureValidationResult result = new XMLSignatureValidationResult();
-        try
-        {
           try {
             Element tempNode = (Element)signl.item(i);
             Element timeStamp = (Element)tempNode.getElementsByTagName("DateTimeStamp").item(0);
@@ -290,32 +274,20 @@ public class IHTKKXMLSignature
           if (!checkSignXpath) {
             valContext.setIdAttributeNS((Element)nodeToSign, null, "id");
           }
-          
+
           XMLSignature signature = fac.unmarshalXMLSignature(valContext);
           certChain = getCertificateChain(signature.getKeyInfo());
           result.setCertChain(certChain);
-          
+
 
           verifyXMLSignature(signature, valContext);
-          
 
 
           certVerifier.verifyCertificationChain(null, certChain[0], certChain);
-          
+
 
           certVerifier.checkRevocationStatus(certChain[0], trustedCerts);
-        }
-        catch (Exception ex) {
-          if ((ex instanceof ITaxSigValidException)) {
-            result.setValidStatus(XMLSignatureValidationResult.SIG_STATUS_ERROR);
-          } else if ((ex instanceof ITaxCertValidException)) {
-            result.setValidStatus(XMLSignatureValidationResult.SIG_STATUS_ERROR);
-          } else if ((ex instanceof ITaxStatusValidException)) {
-            result.setValidStatus(XMLSignatureValidationResult.SIG_STATUS_WARNING);
-          }
-          result.setValidMessage(ex.getMessage());
-        }
-        resultArr.add(result);
+          resultArr.add(result);
       } }
     return resultArr;
   }
@@ -353,7 +325,7 @@ public class IHTKKXMLSignature
         {
 
           X509Data x509Data = (X509Data)keyInfoStructure;
-          List<Object> x509DataList = x509Data.getContent();
+          List<Object> x509DataList = Collections.singletonList(x509Data.getContent());
           for (Object x509DataObject : x509DataList) {
             if ((x509DataObject instanceof X509Certificate))
             {
