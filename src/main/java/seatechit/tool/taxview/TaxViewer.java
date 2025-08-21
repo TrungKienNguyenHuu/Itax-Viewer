@@ -1,7 +1,6 @@
 package seatechit.tool.taxview;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.eclipse.swt.browser.Browser;

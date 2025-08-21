@@ -28,22 +28,8 @@ public class Base64Utils
       mBase64DecMap[mBase64EncMap[i]] = ((byte)i);
     }
   }
-  
-
-
-
-
-
-
 
   private Base64Utils() {}
-  
-
-
-
-
-
-
   public static String base64Encode(byte[] aData)
   {
     if ((aData == null) || (aData.length == 0)) {
@@ -86,15 +72,6 @@ public class Base64Utils
     String result = new String(encodedBuf);
     return result;
   }
-  
-
-
-
-
-
-
-
-
 
   public static byte[] base64Decode(String aData)
   {

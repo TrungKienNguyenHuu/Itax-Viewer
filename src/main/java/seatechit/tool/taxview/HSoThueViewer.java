@@ -173,7 +173,7 @@ public class HSoThueViewer
   
   public void createHTMLViewer() throws IOException { if (fileBrowser != null) {
       fileBrowser.dispose();
-    }
+  }
     fileBrowser = new Browser(viewArea, 0);
     SWidgetTool.boderControl(fileBrowser, 18);
     fileBrowser.addListener(35, new Listener() {
@@ -239,10 +239,6 @@ public class HSoThueViewer
           }
         }
       }
-      
-
-
-
 
       public void keyPressed(KeyEvent e)
       {

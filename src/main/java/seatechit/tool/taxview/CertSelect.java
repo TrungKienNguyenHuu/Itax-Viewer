@@ -20,11 +20,6 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import seatechit.tool.signature.X500PrincipalHelper;
 
-
-
-
-
-
 public class CertSelect
   extends Dialog
 {
@@ -37,9 +32,6 @@ public class CertSelect
     super(parent, style);
     this.certs = certs;
   }
-  
-
-
 
   public String open()
   {
@@ -60,15 +52,11 @@ public class CertSelect
     }
     return selectedCertAlias;
   }
-  
-
 
   private void createContents()
   {
     Set aliasSet = certs.keySet();
     Iterator ito = aliasSet.iterator();
-    
-
 
     Calendar expireCal = Calendar.getInstance();
     
